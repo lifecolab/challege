@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lifecolab.challengeMaker.match.mapper.MatchMapper">
+
+
+
+    <select id="selectMatchList"  parameterType="com.lifecolab.challengeMaker.match.service.impl.vo.MatchVO" resultType="com.lifecolab.challengeMaker.match.service.impl.vo.MatchVO">
+        SELECT
+            ID
+            ,USER_ID
+            ,CREATE_DATE
+            ,MODIFY_DATE
+            ,NAME
+            ,MATCH_TYPE
+            ,START_DATE
+            ,END_DATE
+            ,MANAGER_INFO
+            ,URL
+            ,USE_YN
+        FROM
+            tb_match_mng
+        WHERE
+            USER_ID = #{userId}
+    </select>
+    <select id="selectMatch" parameterType="com.lifecolab.challengeMaker.match.service.impl.vo.MatchVO"  resultType="com.lifecolab.challengeMaker.match.service.impl.vo.MatchVO">
+        SELECT
+            ID
+            ,USER_ID
+            ,CREATE_DATE
+            ,MODIFY_DATE
+            ,NAME
+            ,MATCH_TYPE
+            ,START_DATE
+            ,END_DATE
+            ,MANAGER_INFO
+            ,URL
+            ,USE_YN
+        FROM
+            tb_match_mng
+        WHERE
+             ID = #{id}
+    </select>
+
+    <insert id="insertMatch" parameterType="com.lifecolab.challengeMaker.match.service.impl.vo.MatchVO" >
+        INSERT INTO tb_match_mng
+        (
+            USER_ID
+            ,CREATE_DATE
+            ,MODIFY_DATE
+            ,NAME
+            ,MATCH_TYPE
+            ,START_DATE
+            ,END_DATE
+            ,MANAGER_INFO
+            ,URL
+        )
+        VALUES
+        (
+            #{userId}
+            ,now()
+            ,now()
+            ,#{name}
+            ,#{matchType}
+            ,#{startDate}
+            ,#{endDate}
+            ,#{managerInfo}
+            ,#{url}
+        )
+    </insert>
+
+    <update id="updateMatch" parameterType="com.lifecolab.challengeMaker.match.service.impl.vo.MatchVO" >
+        UPDATE
+            tb_match_mng
+        SET
+            MODIFY_DATE=now(), NAME=#{name}, MATCH_TYPE=#{matchType}, START_DATE=,#{startDate}, END_DATE=#{endDate}, MANAGER_INFO=#{managerInfo}, URL=#{url}, USE_YN=#{useYn}
+        WHERE
+            ID = #{id}
+    </update>
+
+    <delete id="deleteMatch" parameterType="com.lifecolab.challengeMaker.match.service.impl.vo.MatchVO" >
+        DELETE
+        FROM
+            tb_match_mng
+        WHERE ID = #{id}
+    </delete>
+
+</mapper>
